@@ -1,0 +1,98 @@
+﻿@model IEnumerable<HRMS.BusinessEntities.Entitys.AppModuleEntity>
+@{
+    ViewBag.Title = "Manage Controllers";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="info-block">
+            <!--Section Header-->
+            <div class="info-block-header">
+                <h2 class="set-linehgt">@ViewBag.Title</h2>
+                <div class="add-detail"><a href="@Url.Action("Create", "AppController", new { area = "Admin" })" class=""> <i class="fa fa-user-plus"></i></a></div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="info-block-container">
+                <div class="info-block-content">
+            <!--Section Container-->
+            @if (Model != null)
+            {
+                using (Html.BeginForm("AddEmployeeAccess", "AppEmployeeAccess", FormMethod.Get))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="panel-group accessPanelGroup" id="accordion">
+                        @foreach (var item in Model)
+                        {
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_@item.ID">@Html.DisplayFor(modelItem => item.ModuleTitle)</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse_@item.ID" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="table_scroll_admin">
+                                        @if (item.AppControllersEntity != null)
+                                        {
+                                            <table class="table table-striped">
+                                                <thead class="alert alert-info">
+                                                    <tr>
+                                                        <th>
+                                                            @Html.DisplayNameFor(model => model.AppControllersEntity.FirstOrDefault().AreaName)
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayNameFor(model => model.AppControllersEntity.FirstOrDefault().ControllerName)
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayNameFor(model => model.AppControllersEntity.FirstOrDefault().ActionName)
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayNameFor(model => model.AppControllersEntity.FirstOrDefault().ActionDescription)
+                                                        </th>
+                                                        <th style="width:10%">Action</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    @foreach (var controller in item.AppControllersEntity)
+                                                    {
+
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => controller.AreaName)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => controller.ControllerName)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => controller.ActionName)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => controller.ActionDescription)
+                                                            </td>
+                                                            <td>
+                                                                <a href="@Url.Action("Edit", new { id = controller.ID })" class="text-primary" title="Edit">
+                                                                    <i class="fa fa-edit fa-lg"></i>
+                                                                </a>
+                                                                &nbsp;
+                                                                <a href="@Url.Action("Delete", new { id = controller.ID })" itemid="@controller.ID" class="text-danger deleteWithToken " title="Delete"><i class="fa fa-lg fa-trash"></i></a>
+                                                            </td>
+                                                        </tr>
+
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        }
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+    </div>
+</div>

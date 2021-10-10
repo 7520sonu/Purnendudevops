@@ -1,0 +1,92 @@
+﻿@model HRMS.BusinessEntities.Entitys.AppControllerEntity
+
+@{
+    ViewBag.Title = "Add Controller Action";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="info-block">
+            <!--Section Header-->
+            <div class="info-block-header">
+                <h2 class="set-linehgt">@ViewBag.Title</h2>
+                <div class="add-detail"><a href="@Url.Action("Index", "AppController", new { area = "Admin" })" title="Back to List"> <i class="fa fa-angle-double-left"></i></a></div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+            <!--Section Container-->
+            <div class="info-block-container">
+                <div class="info-block-content">
+                    <div class="form-container">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div>
+                                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" style="padding-right:20px">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AppModuleID)
+                                        @Html.DropDownList("AppModuleID", null, "-- Select --", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.AppModuleID, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AreaName)
+                                        @Html.EditorFor(model => model.AreaName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ControllerName)
+                                        @Html.EditorFor(model => model.ControllerName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ControllerName, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ActionName)
+                                        @Html.EditorFor(model => model.ActionName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ActionName, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Access</label>
+                                        @Html.EditorFor(model => model.IsAuthenticate, new { htmlAttributes = new { @class = "input-checkbox" } })
+                                        @Html.LabelFor(model => model.IsAuthenticate)
+                                        @Html.ValidationMessageFor(model => model.IsAuthenticate, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6" style="padding-left:20px">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ActionDescription)
+                                        @Html.TextAreaFor(model => model.ActionDescription, 12, 1, new { @class = "form-control text-area" })
+                                        @Html.ValidationMessageFor(model => model.ActionDescription, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-center">
+                                        <input type="submit" value="Submit" class="btn btn-success" />
+                                        <button type="reset" class="btn btn-danger" onclick="this.form.reset();return false">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
